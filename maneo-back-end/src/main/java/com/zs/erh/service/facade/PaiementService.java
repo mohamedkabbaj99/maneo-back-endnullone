@@ -1,21 +1,35 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.zs.erh.service.facade;
-import com.zs.erh.bean.Paiement;
-import com.zs.erh.service.vo.PaiementVO;
-import org.springframework.data.repository.query.Param;
 
-import java.math.BigDecimal;
+import com.zs.erh.bean.Paiement;
+
 import java.util.List;
 
+/**
+ *
+ * @author admin
+ */
 public interface PaiementService {
-    public List<Paiement> findAll();
-    public Paiement findByReference(String reference);
-    public List<Paiement> findByFactureCode(String code);
-    public Paiement save(Paiement paiement);
-    public int updatePaiement(Paiement paiement);
-    public int deleteByReference(String reference);
-    public int deleteByFactureCode(String code);
+
+    public int deleteByCommandeReference(String reference);
+
+    public List<Paiement> findByCommandeReference(String reference);
+
+    public int deleteByTypePaiementReference(String reference);
+
+    public List<Paiement> findByTypePaiementReference(String reference);
+
+    public int deleteByReference(String refPaiement);
+
+    public Paiement findByReference(String refPaiement);
+
     public int deleteMultiple(List<Paiement> paiements);
-    public PaiementVO calcStatistiquePaiement(PaiementVO paiementVO);
-    public BigDecimal totalPaye(Long factureId);
-    public BigDecimal totalNonPaye(Paiement paiement);
+
+    List<Paiement> findAll();
+
+    public int save(Paiement paiement);
 }

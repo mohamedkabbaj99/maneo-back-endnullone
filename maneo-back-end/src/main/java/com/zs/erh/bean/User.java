@@ -137,7 +137,7 @@ public class User implements Serializable {
         if (!(object instanceof User)) {
             return false;
         }
-        User other = (Collaborateur) object;
+        User other = (ChefDepartment) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.zs.erh.bean;
 
 import javax.persistence.*;
@@ -5,26 +10,29 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ *
+ * @author admin
+ */
 @Entity
 public class Paiement implements Serializable {
-    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String reference;
-    private String libelle;
-    private String description;
+    private String type;
     private BigDecimal montant;
-    @Temporal(javax.persistence.TemporalType.DATE)
     private Date datePaiement;
+    
+    @ManyToOne
+    private Commande commande;
 
-    @ManyToOne
-    private Facture facture;
-    @ManyToOne
-    private EtatPaiement etatPaiement;
     @ManyToOne
     private TypePaiement typePaiement;
+
+    public Paiement() {
+    }
 
     public Long getId() {
         return id;
@@ -42,36 +50,12 @@ public class Paiement implements Serializable {
         this.reference = reference;
     }
 
-    public String getLibelle() {
-        return libelle;
+    public String getType() {
+        return type;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getDatePaiement() {
-        return datePaiement;
-    }
-
-    public void setDatePaiement(Date datePaiement) {
-        this.datePaiement = datePaiement;
-    }
-
-    public Facture getFacture() {
-        return facture;
-    }
-
-    public void setFacture(Facture facture) {
-        this.facture = facture;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public BigDecimal getMontant() {
@@ -82,12 +66,20 @@ public class Paiement implements Serializable {
         this.montant = montant;
     }
 
-    public EtatPaiement getEtatPaiement() {
-        return etatPaiement;
+    public Date getDatePaiement() {
+        return datePaiement;
     }
 
-    public void setEtatPaiement(EtatPaiement etatPaiement) {
-        this.etatPaiement = etatPaiement;
+    public void setDatePaiement(Date datePaiement) {
+        this.datePaiement = datePaiement;
+    }
+
+    public Commande getCommande() {
+        return commande;
+    }
+
+    public void setCommande(Commande commande) {
+        this.commande = commande;
     }
 
     public TypePaiement getTypePaiement() {
@@ -98,23 +90,6 @@ public class Paiement implements Serializable {
         this.typePaiement = typePaiement;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+    
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Paiement)) {
-            return false;
-        }
-        Paiement other = (Paiement) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
 }

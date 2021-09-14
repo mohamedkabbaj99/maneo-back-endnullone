@@ -56,10 +56,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable()
 				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.authorizeRequests().antMatchers("/maneo-rh/chef-agence/**").hasRole("CHEF_AGENCE")
-				.antMatchers("/maneo-rh/chef-equipe/**").hasRole("CHEF_EQUIPE")
+				.authorizeRequests().antMatchers("/maneo-rh/chef-department/**").hasRole("CHEF_DEPARTMENT")
+				.antMatchers("/maneo-rh/responsable-achat/**").hasRole("RESPONSABLE_ACHAT")
 				.antMatchers("/maneo-rh/admin/**").hasRole("ADMIN")
-				.antMatchers("/maneo-rh/collaborateur/**").hasRole("COLLABORATEUR")
+				.antMatchers("/maneo-rh/fournisseur/**").hasRole("FOURNISSEUR")
 				.antMatchers("/**").permitAll()
 				.anyRequest().authenticated();
 

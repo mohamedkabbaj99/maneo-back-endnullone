@@ -1,34 +1,34 @@
 package com.zs.erh.bean;
 
+
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.List;
 
 @Entity
-public class Budget implements Serializable {
-    private static final long serialVersionUID = 1L;
+
+public class Budget {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String libelle;
-    private String code;
-    private BigDecimal montant;
-    private String messageDemmande;
-    private String messageReponse;
-
-    @Temporal(TemporalType.DATE)
-    private Date dateDemmande;
-    @Temporal(TemporalType.DATE)
-    private Date dateReponse;
+    private Integer annee;
+    private String description;
+    @Column(precision = 11, scale = 2)
+    private BigDecimal mtTotal;
+    @Column(precision = 11, scale = 2)
+    private BigDecimal mtPaye;
+    @Column(precision = 11, scale = 2)
+    private BigDecimal mtReserve;
 
 
+    @OneToMany
+    private List<BudgetEntiteAdministrative> budgetEntiteAdministratives;
+    @OneToOne
+    private BudgetDetail budgetDetail;
 
-    @ManyToOne
-    private EtatBudget etatBudget;
-
-    @ManyToOne
-    private Agence agence;
+    public Budget() {
+    }
 
     public Long getId() {
         return id;
@@ -38,86 +38,61 @@ public class Budget implements Serializable {
         this.id = id;
     }
 
-    public String getLibelle() {
-        return libelle;
+    public Integer getAnnee() {
+        return annee;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public void setAnnee(Integer annee) {
+        this.annee = annee;
     }
 
-    public String getCode() {
-        return code;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public BigDecimal getMontant() {
-        return montant;
+    public BudgetDetail getBudgetDetail() {
+        return budgetDetail;
     }
 
-    public void setMontant(BigDecimal montant) {
-        this.montant = montant;
+    public void setBudgetDetail(BudgetDetail budgetDetail) {
+        this.budgetDetail = budgetDetail;
     }
 
-    public EtatBudget getEtatBudget() {
-        return etatBudget;
+    public List<BudgetEntiteAdministrative> getBudgetEntiteAdministratives() {
+        return budgetEntiteAdministratives;
     }
 
-    public void setEtatBudget(EtatBudget etatBudget) {
-        this.etatBudget = etatBudget;
+    public void setBudgetEntiteAdministratives(List<BudgetEntiteAdministrative> budgetEntiteAdministratives) {
+        this.budgetEntiteAdministratives = budgetEntiteAdministratives;
     }
 
-    public Agence getAgence() {
-        return this.agence;
+    public BigDecimal getMtTotal() {
+        return mtTotal;
     }
 
-    public void setAgence(Agence agence) {
-        this.agence = agence;
+    public void setMtTotal(BigDecimal mtTotal) {
+        this.mtTotal = mtTotal;
     }
 
-    public Date getDateDemmande() {
-        return dateDemmande;
+    public BigDecimal getMtPaye() {
+        return mtPaye;
     }
 
-    public void setDateDemmande(Date dateDemmande) {
-        this.dateDemmande = dateDemmande;
+    public void setMtPaye(BigDecimal mtPaye) {
+        this.mtPaye = mtPaye;
     }
 
-    public Date getDateReponse() {
-        return dateReponse;
+    public BigDecimal getMtReserve() {
+        return mtReserve;
     }
 
-    public void setDateReponse(Date dateReponse) {
-        this.dateReponse = dateReponse;
+    public void setMtReserve(BigDecimal mtReserve) {
+        this.mtReserve = mtReserve;
     }
 
-
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Budget)) {
-            return false;
-        }
-        Budget other = (Budget) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-    @Override
-    public String toString() {
-        return "com.telcom.rh.bean.Budget[ id=" + id + " ]";
-    }
 
 }

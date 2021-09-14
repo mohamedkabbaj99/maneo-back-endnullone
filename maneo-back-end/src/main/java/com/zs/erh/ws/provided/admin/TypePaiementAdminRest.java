@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.zs.erh.ws.provided.admin;
 
 import com.zs.erh.bean.TypePaiement;
@@ -7,35 +12,37 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping(value = "maneo-rh/admin/typePaiement")
+/** *
+ * @author admin
+ */@RestController
+@RequestMapping("/pfe/admin/type-paiement")
 public class TypePaiementAdminRest {
+    
     @Autowired
     private TypePaiementService typePaiementService;
 
+    @GetMapping("/reference/{ref}")
+    public TypePaiement findByReference(@PathVariable String ref) {
+        return typePaiementService.findByReference(ref);
+    }
+
+    @DeleteMapping("/reference/{ref}")
+    public int deleteByReference(@PathVariable String ref) {
+        return typePaiementService.deleteByReference(ref);
+    }
+
+    @PostMapping("/")
+    public int save(@RequestBody TypePaiement typePaiement) {
+        return typePaiementService.save(typePaiement);
+    }
 
     @GetMapping("/")
     public List<TypePaiement> findAll() {
         return typePaiementService.findAll();
     }
 
-    @GetMapping("/code/{code}")
-    public TypePaiement findByCode(@PathVariable String code) {
-        return typePaiementService.findByCode(code);
-    }
-
-    @GetMapping("/reference/{reference}")
-    public TypePaiement findByReference(@PathVariable String reference) {
-        return typePaiementService.findByReference(reference);
-    }
-
-    @DeleteMapping("/code/{code}")
-    public int deleteByCode(@PathVariable String code) {
-        return typePaiementService.deleteByCode(code);
-    }
-
-    @DeleteMapping("/reference/{reference}")
-    public int deleteByReference(@PathVariable String reference) {
-        return typePaiementService.deleteByReference(reference);
+    @PostMapping("/delete-multiple-by-reference")
+    public int deleteMultiple(@RequestBody List<TypePaiement> typePaiements) {
+        return typePaiementService.deleteMultiple(typePaiements);
     }
 }

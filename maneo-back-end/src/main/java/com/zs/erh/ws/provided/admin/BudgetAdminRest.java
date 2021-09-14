@@ -1,63 +1,63 @@
 package com.zs.erh.ws.provided.admin;
 
 import com.zs.erh.bean.Budget;
-import com.zs.erh.bean.Tache;
 import com.zs.erh.service.facade.BudgetService;
-import com.zs.erh.service.vo.BudgetVO;
+import com.zs.erh.service.vo.BudgetVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "maneo-rh/admin/budget")
+@RequestMapping("/pfe/admin/budget")
 public class BudgetAdminRest {
     @Autowired
     private BudgetService budgetService;
 
-    // Read Services
+    @PostMapping("/")
+    public Object save(@RequestBody Budget budget) {
+        return budgetService.save(budget);
+    }
+
+    @PutMapping("/")
+    public Budget update(@RequestBody Budget budget) {
+        return budgetService.update(budget);
+    }
+
+    @DeleteMapping("/annee/{annee}")
+    public int deleteByAnnee(@PathVariable Integer annee) {
+        return budgetService.deleteByAnnee(annee);
+    }
+
+    @PostMapping("/delete-multiple-by-annee")
+    public int deleteByAnnee(@RequestBody List<Budget> budgets) {
+        return budgetService.deleteByAnnee(budgets);
+    }
+
+    @GetMapping("/budgetDetail/{budgetDetail}")
+    public Budget findByBudgetDetail(@PathVariable String budgetDetail) {
+        return budgetService.findByBudgetDetail(budgetDetail);
+    }
+
+    @GetMapping("/description/{description}")
+    public Budget findByDescription(@PathVariable String description) {
+        return budgetService.findByDescription(description);
+    }
+
+    @GetMapping("/annee/{annee}")
+    public Budget findByAnnee(@PathVariable Integer annee) {
+        return budgetService.findByAnnee(annee);
+    }
+
+
     @GetMapping("/")
     public List<Budget> findAll() {
         return budgetService.findAll();
     }
 
-    @PostMapping("/statistic-budget")
-    public BudgetVO calcStatistiqueBudget(@RequestBody BudgetVO budgetVO) {
-        return budgetService.calcStatistiqueBudget(budgetVO);
-    }
-
-    @GetMapping("/etat-libelle/{libelle}")
-    public List<Budget> findByEtatBudgetLibelle(@PathVariable String libelle) {
-        return budgetService.findByEtatBudgetLibelle(libelle);
-    }
-
     @PostMapping("/search")
-    public List<Budget> search(@RequestBody BudgetVO budgetVO){
-        return budgetService.search(budgetVO);
+    public List<Budget> search(@RequestBody BudgetVo budgetVo) {
+        return budgetService.search(budgetVo);
     }
 
-    // Create Services
-    @PostMapping("/")
-    public Budget save(@RequestBody BudgetVO budget){
-        return budgetService.save(budget);
-    }
-
-    // Update Service
-    @PostMapping("/edit/")
-    public Budget update(@RequestBody Budget budget) {
-        System.out.println("aymane malih");
-        System.out.println(budget);
-        return budgetService.update(budget);
-    }
-
-    // Delete Services
-    @DeleteMapping("/delete/{code}")
-    public int deleteByCode(@PathVariable String code) {
-        return budgetService.deleteByCode(code);
-    }
-
-    @PostMapping("/delete/")
-    public int deleteMultiple(@RequestBody List<Tache> taches) {
-        return budgetService.deleteMultiple(taches);
-    }
-    }
+}

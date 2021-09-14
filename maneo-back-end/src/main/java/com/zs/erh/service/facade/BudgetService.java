@@ -1,19 +1,29 @@
 package com.zs.erh.service.facade;
 
 import com.zs.erh.bean.Budget;
-import com.zs.erh.bean.Tache;
-import com.zs.erh.service.vo.BudgetVO;
+import com.zs.erh.service.vo.BudgetVo;
+
 
 import java.util.List;
 
 public interface BudgetService {
+
+    int save(Budget budget);
+
+    Budget update(Budget budget);
+
+    int deleteByAnnee(Integer annee);
+
+    int deleteByAnnee(List<Budget> budgets);
+
+    Budget findByBudgetDetail(String budgetDetail);
+
+    Budget findByDescription(String description);
+
+    Budget findByAnnee(Integer annee);
+
+    List<Budget> search(BudgetVo budgetVo);
+
     List<Budget> findAll();
-    Budget findByCode (String code);
-    List<Budget> findByEtatBudgetLibelle(String libelle);
-    int deleteByCode(String code);
-    int deleteMultiple(List<Tache> taches);
-    Budget save (BudgetVO budgetVO);
-    BudgetVO calcStatistiqueBudget(BudgetVO budgetVO);
-    List<Budget> search(BudgetVO budgetVO);
-    Budget update (Budget budget);
+
 }
